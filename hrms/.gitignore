@@ -1,0 +1,56 @@
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+# === Custom Private Files (not to share publicly) ===
+src/main/java/me/iamcrk/hrms/restcontroller/ClockRestController.java
+src/main/java/me/iamcrk/hrms/restcontroller/HolidayRestController.java
+src/main/java/me/iamcrk/hrms/restcontroller/AttendanceRestController.java
+src/main/java/me/iamcrk/hrms/restcontroller/SalaryRestController.java
+
+src/main/java/me/iamcrk/hrms/security/SecurityConfig.java
+
+src/main/java/me/iamcrk/hrms/service/AttendanceService.java
+src/main/java/me/iamcrk/hrms/service/HolidayService.java
+src/main/java/me/iamcrk/hrms/service/SalaryService.java
+
+src/main/java/me/iamcrk/hrms/dto/AttendanceMonthlySummaryDTO.java
+
+src/main/java/me/iamcrk/hrms/repository/IHolidayRepo.java
+src/main/java/me/iamcrk/hrms/repository/ILeaveRepo.java
+src/main/java/me/iamcrk/hrms/repository/ISalaryRepo.java
+src/main/java/me/iamcrk/hrms/repository/IAttendanceRepo.java
+src/main/java/me/iamcrk/hrms/repository/IAdvanceSalaryRepo.java
+
+src/main/resources/application.properties
+src/main/resources/application-dev.properties

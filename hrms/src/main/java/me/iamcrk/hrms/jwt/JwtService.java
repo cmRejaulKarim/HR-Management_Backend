@@ -1,0 +1,89 @@
+package me.iamcrk.hrms.jwt;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+import me.iamcrk.hrms.entity.User;
+import me.iamcrk.hrms.repository.ITokenRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+
+import javax.crypto.SecretKey;
+import java.util.Date;
+import java.util.function.Function;
+
+@Service
+public class JwtService {
+
+    @Autowired
+    private ITokenRepo tokenRepo;
+
+    private final String SECURITY_KEY = "Iamv95DfOgkkHtPDZ7AnilQ8Ps53KnCrkpX94slsY84aSz1T";
+
+    private Claims extractAllClaims(String token) {
+
+        return Jwts
+                .parser()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+    private SecretKey getSigningKey() {
+
+        byte[] keyBytes = Decoders.BASE64URL.decode(SECURITY_KEY);
+        return Keys.hmacShaKeyFor(keyBytes);
+
+    }
+    public String generateToken(User user) {
+        return Jwts
+                .builder()
+                .setSubject(user.getEmail()) // Set Email as Subject
+                .claim("role", user.getRole()) // Add user Role to Payload
+                .setIssuedAt(new Date(System.currentTimeMillis())) // Set Token issue ime
+                .setExpiration(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000)) // Set Token Expire Time
+                .signWith(getSigningKey()) // Sign the Token with Secreat key
+                .compact();
+
+    }
+    public String extractUserName(String token) {
+
+        return extractClaim(token, Claims::getSubject);
+
+    }
+    public <T> T extractClaim(String token, Function<Claims, T> resolver) {
+
+        Claims claims = extractAllClaims(token);
+        return resolver.apply(claims);
+    }
+    private Date extractExpiration(String token) {
+
+        return extractClaim(token, Claims::getExpiration);
+
+    }
+
+    private boolean isTokenExpired(String token) {
+
+        return extractExpiration(token).before(new Date());
+
+    }
+    public boolean isValid(String token, UserDetails user) {
+
+        String userName = extractUserName(token);
+
+        boolean validToken = tokenRepo
+                .findByToken(token)
+                .map(t -> !t.isLogout())
+                .orElse(false);
+
+        return (userName.equals(user.getUsername()) && !isTokenExpired(token) && validToken);
+
+    }
+    public String extractUserRole(String token) {
+
+        return extractClaim(token, claims -> claims.get("role", String.class));
+    }
+
+}
