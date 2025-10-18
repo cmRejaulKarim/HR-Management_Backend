@@ -1,0 +1,130 @@
+/* Container for the entire holiday section */
+.holiday-table-container {
+    max-width: 960px;
+    margin: 40px auto;
+    padding: 24px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    overflow-x: auto;
+    transition: box-shadow 0.3s ease;
+}
+
+/* Wrap only the table in a scrollable container */
+.holiday-table-wrapper {
+    overflow-x: auto;
+    background-color: #f3f3f3;
+    /* light gray background for the table area */
+    border-radius: 10px;
+    padding: 12px;
+}
+
+/* Table structure */
+.holiday-table {
+    width: 100%;
+    min-width: 700px;
+    /* ensures scroll on small screens */
+    border-collapse: collapse;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    /* Table's own background */
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Table header */
+.holiday-table thead {
+    background: linear-gradient(135deg, #665051, #635c38);
+    color: white;
+}
+
+/* Table cells */
+.holiday-table th,
+.holiday-table td {
+    padding: 16px 18px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Alternate row coloring */
+.holiday-table tr:nth-child(even) {
+    background-color: #fcfcfc;
+}
+
+/* Hover effect */
+.holiday-table tr:hover {
+    background-color: #6e6767;
+    color: white;
+    transition: background 0.2s ease;
+}
+.holiday-toggle-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.holiday-toggle-container button {
+    padding: 10px 22px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #444;
+    background-color: #f3f3f3;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.holiday-toggle-container button:hover {
+    background-color: #665051;
+    color: white;
+    border-color: #665051;
+    box-shadow: 0 4px 10px rgba(102, 80, 81, 0.3);
+}
+
+.holiday-toggle-container button.active {
+    background-color: #ff4e50;
+    color: white;
+    border-color: #ff4e50;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(255, 78, 80, 0.3);
+}
+.holiday-toggle-container .home-btn {
+    margin-left: auto;
+    margin-right: 4px;
+    background-color: #4e1604;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.holiday-toggle-container .home-btn:hover {
+    background-color: #b03010;
+}
+/* Hide scrollbar but keep scrolling */
+.holiday-table-container {
+    max-height: 90vh;
+    /* optional, only if you want fixed height */
+    overflow-y: auto;
+    overflow-x: auto;
+
+    /* For Firefox */
+    scrollbar-width: none;
+
+    /* For IE, Edge */
+    -ms-overflow-style: none;
+}
+
+.holiday-table-container::-webkit-scrollbar {
+    display: none;
+    /* For Chrome, Safari, Opera */
+}

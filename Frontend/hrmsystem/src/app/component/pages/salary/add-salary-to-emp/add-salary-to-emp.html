@@ -1,0 +1,47 @@
+<div class="">
+    <div class="mt-4">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between mt-5 mb-3">
+                <h2>All Employee List</h2>
+
+                <div>
+                    <button class="btn btn-primary mx-2" routerLink="/holidayadd">Holiday</button>
+                    <button class="btn btn-primary mx-2" routerLink="/empprofile">Employee Profile</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- SCROLLABLE WRAPPER -->
+        <div class="table-container">
+            <table class="table striped" style="margin-top: 10px;">
+                <thead>
+                    <tr>
+                        <th>SL</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Date of Birth</th>
+                        <th>Joining Date</th>
+                        <th>Basic Salary</th>
+                        <th>Allowance</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let s of employees | async; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{s.name}}</td>
+                        <td>{{s.email}}</td>
+                        <td>{{s.dateOfBirth}}</td>
+                        <td>{{s.joiningDate}}</td>
+                        <td>{{s.basicSalary}}</td>
+                        <td>{{s.allowance}}</td>
+                        <td>
+                            <button class="btn btn-sm btn-success" (click)="promptAddSalary(s.id)">Add/Update Salary</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

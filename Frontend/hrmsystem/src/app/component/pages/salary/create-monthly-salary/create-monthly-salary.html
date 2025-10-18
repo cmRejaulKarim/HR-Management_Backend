@@ -1,0 +1,38 @@
+<div>
+    <h3>Salary Management</h3>
+    <div>
+        <label>Year: <input type="number" [(ngModel)]="year"></label>
+        <label>Month: <input type="number" [(ngModel)]="month" min="1" max="12"></label>
+        <button (click)="loadSalaries()">Load Salaries</button>
+        <button (click)="generateSalaryForAll()">Generate Missing Salaries</button>
+    </div>
+
+    <table class="table table-bordered mt-3" *ngIf="salaries.length > 0">
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Basic Salary</th>
+                <th>Overtime</th>
+                <th>Leaves</th>
+                <th>Total Salary</th>
+                <!-- <th>Status</th> -->
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let salary of salaries">
+                <td>{{ salary.employee.name }}</td>
+                <td>{{ salary.basicSalary }}</td>
+                <td>{{ salary.overtimeSalary }}</td>
+                <td>{{ salary.leavePenalty }}</td>
+                <td>{{ salary.totalSalary }}</td>
+                <!-- <td>{{ salary.approved ? 'Approved' : 'Pending' }}</td> -->
+                <td>
+                    <!-- <button *ngIf="!salary.approved" (click)="approveSalary(salary.id)">Approve</button> -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div *ngIf="loading">Loading...</div>
+</div>

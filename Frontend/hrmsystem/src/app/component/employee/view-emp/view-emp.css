@@ -1,0 +1,22 @@
+.table-container {
+    max-width: 100%;
+    max-height: 90vh;
+    /* adjust height as you need */
+    overflow-x: auto;
+    overflow-y: auto;
+
+    /* Hide scrollbar (cross-browser) */
+    -ms-overflow-style: none;
+    /* IE, Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.table-container::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, Opera */
+}
+.d-flex .btn {
+    padding: 6px 16px;
+    font-size: 14px;
+}

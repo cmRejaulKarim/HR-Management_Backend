@@ -1,0 +1,35 @@
+body {
+    background: #f8f9fa;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.message-box {
+    background: #ffffff;
+    padding: 40px 35px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    max-width: 1100px;
+    text-align: center;
+    margin-left: 130px;
+    margin-top: 60px;
+}
+
+.message-box h1 {
+    color: #dc3545;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.message-box h4 {
+    color: #343a40;
+    margin-bottom: 10px;
+}
+
+.message-box h6 {
+    color: #6c757d;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}

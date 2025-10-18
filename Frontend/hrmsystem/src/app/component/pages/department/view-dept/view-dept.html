@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="text-center mb-4 mt-4">
+        <a class="btn btn-success m-5" href="/addDept">Add Dept</a>
+        <a class="btn btn-success" routerLink="/addDes">view Des</a>
+
+    </div>
+    <div class="form-group mb-3">
+        <label for="department">Select Department:</label>
+        <select id="department" class="form-control" [(ngModel)]="selectedDepartmentId" name="department"
+            (change)="onDepartmentChange()">
+            <option value="">-- Select Department --</option>
+            <option *ngFor="let dept of departments" [value]="dept.id">
+                {{ dept.name }}
+            </option>
+        </select>
+    </div>
+    
+    <div class="form-group mb-3" *ngIf="designations.length > 0">
+        <label for="designation">Select Designation:</label>
+        <select id="designation" class="form-control" [(ngModel)]="selectedDesignationId" name="designation">
+            <option value="">-- Select Designation --</option>
+            <option *ngFor="let des of designations" [value]="des.id">
+                {{ des.name }}
+            </option>
+        </select>
+    </div>
+    
+    <!-- <p *ngIf="selectedDepartmentId">
+        ✅ Selected Department ID: {{ selectedDepartmentId }}
+    </p>
+    <p *ngIf="selectedDesignationId">
+        ✅ Selected Designation ID: {{ selectedDesignationId }}
+    </p> -->
+</div>

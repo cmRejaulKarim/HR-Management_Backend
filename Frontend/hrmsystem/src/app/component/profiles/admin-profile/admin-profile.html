@@ -1,0 +1,185 @@
+<!-- Navbar with Profile Dropdown -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm border-bottom">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold text-dark" href="#">
+            <span class="text-primary">Admin</span> Dashboard
+        </a>
+
+        <div class="collapse navbar-collapse" id="adminNavbar">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link active fw-semibold" href="#">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/viewallemp">View All Employees</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Departments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Reports</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <!-- <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown"
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false"> -->
+
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="display: flex;" [class.dropdown-toggle]="false">
+                        <img [src]="'http://localhost:8085/images/employee/' + emp.photo" alt="Profile" class="rounded-circle" width="35"
+                            height="35">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="profileDropdown"
+                        style="width: 220px;">
+                        <li class="px-3 py-2 text-center">
+                            <img [src]="'http://localhost:8085/images/employee/' + emp.photo" class="rounded-circle mb-2" width="50"
+                                height="50">
+                            <h6 class="mb-0">{{ emp?.name }}</h6>
+                            <small class="text-muted">{{ emp?.email }}</small>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item fw-semibold" routerLink="/empprofile">My Account</a></li>
+                        <li><a class="dropdown-item" routerLink="/adminprofile">Settings</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item text-danger fw-semibold" routerLink="/logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Greeting Card -->
+<div class="card shadow-sm border-0 my-3" style="max-width: 900px; margin: 20px auto;">
+    <div class="card-body d-flex align-items-center">
+        <!-- HRMS Logo -->
+        <div class="me-5 mx-3">
+            <div class="hrms-logo">
+                <a href="clock" style="text-decoration: none; color: #ffffff;">HRMS</a>
+            </div>
+        </div>
+
+        <!-- Greeting Text -->
+        <div>
+            <h5 class="mb-1">{{ getGreeting() }}, <span class="text-primary">{{ emp?.name }}</span> 👋</h5>
+            <p class="mb-0 text-muted">Have a productive day ahead!</p>
+        </div>
+    </div>
+</div>
+
+<div class="accordion custom-accordion shadow-sm rounded-3" id="leaveAccordion">
+
+    <!-- Pending DeptHead Requests -->
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingPending">
+            <button class="accordion-button collapsed d-flex justify-content-between align-items-center" type="button"
+                data-bs-toggle="collapse" data-bs-target="#collapsePending" aria-expanded="false"
+                aria-controls="collapsePending">
+                <span>DeptHead Pending Leave Requests</span>
+                <span class="badge bg-warning ms-2">{{ deptHeadLeaves.length }}</span>
+            </button>
+        </h2>
+        <div id="collapsePending" class="accordion-collapse collapse" aria-labelledby="headingPending"
+            data-bs-parent="#leaveAccordion">
+            <div class="accordion-body">
+
+                <!-- Last updated timestamp -->
+                <p class="text-muted fst-italic small mb-2">
+                    Last updated: {{ lastUpdatedDeptHeadLeaves || 'Loading...' }}
+                </p>
+
+                <table class="table table-striped table-hover align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Employee</th>
+                            <th>Department</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th>Days</th>
+                            <th>Reason</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let l of deptHeadLeaves">
+                            <td>{{ l.employee?.name }}</td>
+                            <td>{{ getDeptName(l.employee?.department ?? 0) }}</td>
+                            <td>{{ l.startDate }}</td>
+                            <td>{{ l.endDate }}</td>
+                            <td>{{ l.totalLeaveDays }}</td>
+                            <td>{{ l.reason }}</td>
+                            <td><span class="badge bg-warning text-dark">{{ l.status }}</span></td>
+                            <td>
+                                <button class="btn btn-success btn-sm me-2" (click)="approve(l.id!)"
+                                    [disabled]="l.status !== 'PENDING'">
+                                    Approve
+                                </button>
+                                <button class="btn btn-danger btn-sm" (click)="reject(l.id!)"
+                                    [disabled]="l.status !== 'PENDING'">
+                                    Reject
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Approved Leaves (All Employees) -->
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingApproved">
+            <button class="accordion-button collapsed d-flex justify-content-between align-items-center" type="button"
+                data-bs-toggle="collapse" data-bs-target="#collapseApproved" aria-expanded="false"
+                aria-controls="collapseApproved">
+                <span>Approved Leaves (All Employees)</span>
+                <span class="badge bg-success ms-2">{{ approvedLeaves.length }}</span>
+            </button>
+        </h2>
+        <div id="collapseApproved" class="accordion-collapse collapse" aria-labelledby="headingApproved"
+            data-bs-parent="#leaveAccordion">
+            <div class="accordion-body">
+
+                <!-- Last updated timestamp -->
+                <p class="text-muted fst-italic small mb-2">
+                    Last updated: {{ lastUpdatedApprovedLeaves || 'Loading...' }}
+                </p>
+
+                <table class="table table-bordered table-hover align-middle">
+                    <thead class="table-success">
+                        <tr>
+                            <th>Employee</th>
+                            <th>Department</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th>Days</th>
+                            <th>Reason</th>
+                            <th>Approval Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let l of approvedLeaves">
+                            <td>{{ l.employee?.name }}</td>
+                            <td>{{ getDeptName(l.employee?.department ?? 0) }}</td>
+                            <td>{{ l.startDate }}</td>
+                            <td>{{ l.endDate }}</td>
+                            <td>{{ l.totalLeaveDays }}</td>
+                            <td>{{ l.reason }}</td>
+                            <td>{{ l.approvalDate }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+</div>

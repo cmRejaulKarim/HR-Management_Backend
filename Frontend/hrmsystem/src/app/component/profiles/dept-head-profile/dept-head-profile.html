@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+    <div class="container-fluid">
+        <!-- Brand -->
+        <a class="navbar-brand fw-bold text-primary" href="empprofile">
+            Dept Head Dashboard
+        </a>
+
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menu -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active fw-semibold" aria-current="page" routerLink="/empprofile">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/viewallemp">
+                        View All Employees
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/attendancebydept">
+                        View All Attendance
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/leave">
+                        Leave Requests
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-danger fw-semibold" routerLink="/logout">
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

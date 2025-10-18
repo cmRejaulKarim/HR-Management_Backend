@@ -1,0 +1,100 @@
+<!-- Advance Request Form -->
+<div *ngIf="showAdvanceForm" class="card shadow-sm p-4 mb-4">
+  <h5 class="text-success mb-3">
+    <i class="fas fa-money-check-alt me-2"></i>Advance Request
+  </h5>
+
+  <form (ngSubmit)="submitAdvanceRequest()" #advanceForm="ngForm">
+    <div class="mb-3">
+      <label class="form-label">Requested Amount</label>
+      <input type="number"
+             class="form-control"
+             [(ngModel)]="advance.amount"
+             name="Amount"
+             required />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Reason</label>
+      <textarea class="form-control"
+                [(ngModel)]="advance.reason"
+                name="reason"
+                rows="3"></textarea>
+    </div>
+
+    <div *ngIf="advance.amount && advance.amount > emp?.basicSalary" class="text-danger mb-2">
+      Requested amount exceeds your monthly salary (₹{{ emp?.basicSalary }})
+    </div>
+
+    <div *ngIf="hasRequestedThisMonth()" class="text-warning mb-2">
+      You have already submitted an advance request for this month.
+    </div>
+
+    <div class="d-flex justify-content-end gap-2">
+      <button type="submit"
+              class="btn btn-success"
+              [disabled]="advanceForm.invalid || hasRequestedThisMonth() || !advance.amount > emp?.basicSalary">
+        <i class="fas fa-paper-plane me-1"></i>Submit
+      </button>
+      <button type="button"
+              class="btn btn-secondary"
+              (click)="cancelAdvance()">
+        <i class="fas fa-times me-1"></i>Cancel
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- Advance Requests Table -->
+<div *ngIf="empAdvanceList.length > 0" class="card shadow-sm p-4 mb-4">
+  <h5 class="text-primary mb-3">
+    <i class="fas fa-list me-2"></i>Your Advance Requests
+  </h5>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover text-center align-middle">
+      <thead class="table-primary">
+        <tr>
+          <th>Application Date</th>
+          <th>Amount</th>
+          <th>Reason</th>
+          <th>Status</th>
+          <th>Approval Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let adv of empAdvanceList">
+          <td>{{ adv.requestDate | date: 'mediumDate' }}</td>
+          <td>{{ adv.amount }}</td>
+          <td>{{ adv.reason || 'N/A' }}</td>
+          <td>
+            <span class="badge" [ngClass]="{
+                        'bg-success': adv.status === 'APPROVED',
+                        'bg-warning': adv.status === 'PENDING',
+                        'bg-danger': adv.status === 'REJECTED'
+                      }">
+              {{ adv.status === 'APPROVED' ? 'Approved'
+              : adv.status === 'PENDING' ? 'Pending'
+              : 'Rejected' }}
+            </span>
+          </td>
+          <td>{{ adv.approvalDate ? (adv.approvalDate | date: 'mediumDate') : 'Pending' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- No Requests Message -->
+<div *ngIf="empAdvanceList.length === 0 && emp?.id" class="card shadow-sm mb-4 hover-card">
+  <div class="card-body text-center">
+    <h6 class="text-muted mb-3">
+      <i class="fas fa-info-circle me-2"></i>No advance requests submitted yet.
+    </h6>
+    <button class="btn btn-outline-primary"
+            (click)="toggleAdvanceForm()"
+            [disabled]="!emp?.id || hasRequestedThisMonth()">
+      <i class="fas fa-hand-holding-usd me-2"></i>Request Advance
+    </button>
+  </div>
+</div>

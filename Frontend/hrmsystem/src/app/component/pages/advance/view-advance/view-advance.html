@@ -1,0 +1,52 @@
+<div class="advance-list">
+    <h2>All Advance Salary Requests</h2>
+
+    <div *ngIf="loading">Loading...</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div class="table-container" *ngIf="advances.length > 0">
+        <table>
+            <thead>
+                <tr>
+                    <th>SL</th>
+                    <th>Employee</th>
+                    <th>Amount</th>
+                    <th>Reason</th>
+                    <th>Requested Date</th>
+                    <th>Status</th>
+                    <th>Approval Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let adv of advances; let i = index">
+                    <td>{{ i + 1 }}</td> <!-- Custom serial number -->
+                    <td>{{ adv.employee.name }}</td>
+                    <td>{{ adv.amount | currency:' BDT ' }}</td>
+                    <td>{{ adv.reason }}</td>
+                    <td>{{ adv.requestDate | date:'mediumDate' }}</td>
+                    <td>
+                        <span [ngClass]="{
+                            'status-approved': adv.status === 'APPROVED',
+                            'status-rejected': adv.status === 'REJECTED',
+                            'status-pending': adv.status === 'PENDING'
+                        }">
+                            {{ adv.status }}
+                        </span>
+                    </td>
+                    <td>{{ adv.approvalDate | date:'mediumDate' }}</td>
+                    <td>
+                        <button (click)="approve(adv)" [disabled]="adv.status !== 'PENDING'">Approve</button>
+                        <button (click)="reject(adv)" [disabled]="adv.status !== 'PENDING'">Reject</button>
+                        <!-- <button (click)="approve(adv.id!)" [disabled]="adv.status !== 'PENDING'">Approve</button>
+                        <button (click)="reject(adv.id!)" [disabled]="adv.status !== 'PENDING'">Reject</button> -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="advances.length === 0 && !loading">
+        No advance requests found.
+    </div>
+</div>

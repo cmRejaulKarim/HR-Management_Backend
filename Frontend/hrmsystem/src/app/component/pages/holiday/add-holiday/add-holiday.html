@@ -1,0 +1,31 @@
+<div>
+    <h2>Manage Holidays</h2>
+
+    <div>
+        <input type="date" [(ngModel)]="newDate">
+        <input type="text" placeholder="Description" [(ngModel)]="newDescription">
+        <button (click)="addHoliday()">Add Holiday</button>
+    </div>
+
+    <!-- Scrollable container -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let holiday of holidays">
+                    <td>{{ holiday.date }}</td>
+                    <td>{{ holiday.description }}</td>
+                    <td>
+                        <button (click)="deleteHoliday(holiday.id!)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

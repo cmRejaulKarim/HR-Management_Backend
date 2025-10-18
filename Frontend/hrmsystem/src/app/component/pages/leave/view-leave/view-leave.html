@@ -1,0 +1,69 @@
+<div class="container mt-4">
+    <h2 class="mb-3">Leave Requests for Your Department</h2>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="text-center">
+        <p>Loading leave requests...</p>
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+    </div>
+
+    <!-- Leave Table -->
+    <table class="table table-bordered table-striped" *ngIf="!loading && leaves.length > 0">
+        <thead class="table-dark">
+            <tr>
+                <th>SL</th>
+                <th>Name</th>
+                <th>Reason</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Total Days</th>
+                <th>Requested On</th>
+                <!-- <th>Yearly Approved</th> -->
+                <th>Status</th>
+                <th>Approval Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let leave of leaves; let i = index">
+                <td>{{ i +1 }}</td>
+                <td>{{ leave.employee!.name}}</td>
+                <td>{{ leave.reason }}</td>
+                <td>{{ leave.startDate | date }}</td>
+                <td>{{ leave.endDate | date }}</td>
+                <td>{{ leave.totalLeaveDays }}</td>
+                <td>{{ leave.requestedDate | date }}</td>
+                <!-- <td>{{ getYearlyApproved(leave.employee.id) }}</td> -->
+                <td>
+                    <span [ngClass]="{
+              'badge bg-warning': leave.status === 'PENDING',
+              'badge bg-success': leave.status === 'APPROVED',
+              'badge bg-danger': leave.status === 'REJECTED'
+            }">
+                        {{ leave.status }}
+                    </span>
+                </td>
+                <td>{{ leave.approvalDate ? (leave.approvalDate | date) : '-' }}</td>
+                <td>
+                    <button class="btn btn-success btn-sm me-2" (click)="approve(leave.id!)"
+                        [disabled]="leave.status !== 'PENDING'">
+                        Approve
+                    </button>
+                    <button class="btn btn-danger btn-sm" (click)="reject(leave.id!)"
+                        [disabled]="leave.status !== 'PENDING'">
+                        Reject
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- No Leaves -->
+    <div *ngIf="!loading && leaves.length === 0" class="alert alert-info">
+        No leave requests found for your department.
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="container mt-4">
+
+  <form [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Department Name</label>
+      <input type="text" id="name" formControlName="name" class="form-control" placeholder="Enter Department name">
+    </div>
+
+    <button type="submit" class="btn btn-primary me-2" [disabled]="departmentForm.invalid">
+      {{ editMode ? 'Update' : 'Create' }}
+    </button>
+
+    <button type="button" class="btn btn-secondary" (click)="resetForm()" *ngIf="editMode">Cancel</button>
+  </form>
+
+  <hr>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Department Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let dept of departments">
+        <td>{{ dept.id }}</td>
+        <td>{{ dept.name }}</td>
+        <td>
+          <button class="btn btn-sm btn-warning me-2" (click)="onEdit(dept)">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="onDelete(dept.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
