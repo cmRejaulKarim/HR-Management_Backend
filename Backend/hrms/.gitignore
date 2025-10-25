@@ -38,7 +38,6 @@ src/main/java/me/iamcrk/hrms/restcontroller/HolidayRestController.java
 src/main/java/me/iamcrk/hrms/restcontroller/AttendanceRestController.java
 src/main/java/me/iamcrk/hrms/restcontroller/SalaryRestController.java
 
-src/main/java/me/iamcrk/hrms/security/SecurityConfig.java
 
 src/main/java/me/iamcrk/hrms/service/AttendanceService.java
 src/main/java/me/iamcrk/hrms/service/HolidayService.java
