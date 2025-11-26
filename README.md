@@ -32,6 +32,8 @@ A full-featured HR and Payroll solution for managing employees, attendance, sala
 
 **[view demo](https://iamcrk.me/HRM/DemoHRM.html)**
 
+**[view Project Video](https://youtu.be/mChc5vFodVU?si=BdMkSTR7Z9z4ruwT)**
+
 ---
 
 ## 📸 Screenshots
@@ -95,6 +97,13 @@ A full-featured HR and Payroll solution for managing employees, attendance, sala
 
 This project is made public for **showcase and learning purposes** only.  
 Commercial use or redistribution is **not allowed** without permission.
+
+---
+
+## 📝 Note
+
+The project is actively updated day by day.  
+🔹 **Updated Full Source Code:** Available upon request.
 
 ---
 
