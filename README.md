@@ -36,6 +36,13 @@ A full-featured HR and Payroll solution for managing employees, attendance, sala
 
 ---
 
+## 📝 Note
+
+The project is actively updated day by day.  
+🔹 **Updated Full Source Code:** Available upon request.
+
+---
+
 ## 📸 Screenshots
 
 
@@ -98,12 +105,7 @@ A full-featured HR and Payroll solution for managing employees, attendance, sala
 This project is made public for **showcase and learning purposes** only.  
 Commercial use or redistribution is **not allowed** without permission.
 
----
 
-## 📝 Note
-
-The project is actively updated day by day.  
-🔹 **Updated Full Source Code:** Available upon request.
 
 ---
 
